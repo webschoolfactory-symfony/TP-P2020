@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ProductController extends Controller
 {
     /**
-     * @Route(path="/products")
+     * @Route(path="/products", name="products")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -22,6 +22,22 @@ class ProductController extends Controller
             'Product/list.html.twig',
             [
                 'products' => $this->getDoctrine()->getRepository(Product::class)->findAll()
+            ]
+        );
+    }
+    /**
+     * @Route(path="/products/{id}", name="product")
+     *
+     * @param int $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getAction(int $id)
+    {
+        return $this->render(
+            'Product/get.html.twig',
+            [
+                'product' => $this->getDoctrine()->getRepository(Product::class)->find($id)
             ]
         );
     }

@@ -43,7 +43,7 @@ class Product
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -51,7 +51,7 @@ class Product
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -67,7 +67,7 @@ class Product
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -83,7 +83,7 @@ class Product
     /**
      * @return int
      */
-    public function getPrice(): int
+    public function getPrice(): ?int
     {
         return $this->price;
     }
@@ -94,5 +94,10 @@ class Product
     public function setPrice(int $price)
     {
         $this->price = $price;
+    }
+
+    public function getEuroPrice(): float
+    {
+        return $this->getPrice() / 100;
     }
 }

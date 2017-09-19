@@ -4,9 +4,15 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+
+        <link rel="stylesheet" href="{{ asset('build/js/app.css') }}">
     </head>
     <body>
+        <header>
+            <a href="{{ path('products') }}">Produits</a>
+        </header>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        <script src="{{ asset('build/js/app.js') }}" async></script>
     </body>
 </html>
