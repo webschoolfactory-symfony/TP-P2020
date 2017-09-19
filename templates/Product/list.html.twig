@@ -1,0 +1,10 @@
+<ul>
+
+    {% block body %}
+        {% for product in products %}
+            <li>{{ product.name }}</li>
+        {% endfor %}
+    {% endblock %}
+
+</ul>
+
