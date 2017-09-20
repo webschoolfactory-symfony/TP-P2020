@@ -18,6 +18,7 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+             ->add('category')
              ->add('name')
              ->add('description', CKEditorType::class)
              ->add('price')

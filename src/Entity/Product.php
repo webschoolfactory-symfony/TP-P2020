@@ -21,6 +21,13 @@ class Product
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     *
+     * @var Category
+     */
+    private $category;
+
+    /**
      * @Assert\NotBlank()
      * @ORM\Column(type="string")
      *
@@ -128,5 +135,21 @@ class Product
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return Category
+     */
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category $category
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
     }
 }
