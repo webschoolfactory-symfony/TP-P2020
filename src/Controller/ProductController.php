@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -40,13 +41,7 @@ class ProductController extends Controller
      */
     public function createAction(Request $request)
     {
-        $form = $this->createFormBuilder(new Product)
-            ->add('name')
-            ->add('description', CKEditorType::class)
-            ->add('price')
-            ->add('image', FileType::class)
-            ->add('submit', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(ProductType::class);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
