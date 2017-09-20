@@ -45,6 +45,15 @@ class Product
     private $price;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Image()
+     * @ORM\Column(type="string")
+     *
+     * @var string
+     */
+    private $image;
+
+    /**
      * @return int
      */
     public function getId(): ?int
@@ -103,5 +112,21 @@ class Product
     public function getEuroPrice(): float
     {
         return $this->getPrice() / 100;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Product;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,13 +44,27 @@ class ProductController extends Controller
             ->add('name')
             ->add('description', CKEditorType::class)
             ->add('price')
+            ->add('image', FileType::class)
             ->add('submit', SubmitType::class)
             ->getForm();
 
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $product = $form->getData();
+            $file    = $product->getImage();
+
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+            // Move the file to the directory where brochures are stored
+            $file->move(
+                $this->getParameter('kernel.root_dir') . '/../public/uploads',
+                $fileName
+            );
+
+            $product->setImage($fileName);
+
             $manager = $this->getDoctrine()->getManager();
-            $manager->persist($form->getData());
+            $manager->persist($product);
             $manager->flush();
 
             return $this->redirectToRoute('products');
