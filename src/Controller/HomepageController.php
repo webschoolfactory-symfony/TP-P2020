@@ -19,13 +19,14 @@ class HomepageController extends Controller
     public function indexAction()
     {
         $this->get('doctrine')->getRepository(Product::class)->findAll();
+
         return $this->render('Homepage/index.html.twig');
     }
 
     /**
      * @Route(path="/hello/{name}", name="hello")
      *
-     * @param $name
+     * @param string $name
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
