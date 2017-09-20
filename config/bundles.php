@@ -11,4 +11,5 @@ return [
     'Doctrine\Bundle\DoctrineBundle\DoctrineBundle' => ['all' => true],
     'Symfony\Bundle\SecurityBundle\SecurityBundle' => ['all' => true],
     'JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle' => ['all' => true],
+    'Ivory\CKEditorBundle\IvoryCKEditorBundle' => ['all' => true],
 ];

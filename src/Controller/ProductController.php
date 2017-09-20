@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -40,7 +41,7 @@ class ProductController extends Controller
     {
         $form = $this->createFormBuilder(new Product)
             ->add('name')
-            ->add('description')
+            ->add('description', CKEditorType::class)
             ->add('price')
             ->add('submit', SubmitType::class)
             ->getForm();
