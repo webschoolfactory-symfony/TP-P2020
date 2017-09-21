@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ product.name }}</h1>
+    <h1>Produit « {{ product.name }} »</h1>
     <h2>
         Seulement
         <big>{{ product.euroPrice }}€</big>
@@ -10,5 +10,22 @@
     <p>
         {{ product.description | raw }}
     </p>
+
+    <h3>Commentaires</h3>
+    <ul>
+        {% for comment in product.comments %}
+            <li>
+                <h4>{{ comment.author }}</h4>
+                <p>
+                    {{ comment.comment }}
+                </p>
+            </li>
+        {% else %}
+            <li>Pas de commentaires</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Nouveau commentaire</h3>
+    {{ form(comment_form) }}
 {% endblock %}
 

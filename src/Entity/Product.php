@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -61,6 +63,19 @@ class Product
      * @var string
      */
     private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
+     * @ORM\OrderBy({"id": "DESC"})
+     *
+     * @var Collection<Comment>
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -153,5 +168,13 @@ class Product
     public function setCategory(Category $category)
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
     }
 }

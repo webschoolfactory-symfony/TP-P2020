@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\CommentType;
 use App\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,7 +24,7 @@ class ProductController extends Controller
         return $this->render(
             'Product/list.html.twig',
             [
-                'products' => $this->getDoctrine()->getRepository(Product::class)->findAll()
+                'products' => $this->getDoctrine()->getRepository(Product::class)->findAll(),
             ]
         );
     }
@@ -45,7 +46,7 @@ class ProductController extends Controller
             $product = $form->getData();
             $file    = $product->getImage();
 
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
             // Move the file to the directory where brochures are stored
             $file->move(
@@ -68,16 +69,32 @@ class ProductController extends Controller
     /**
      * @Route(path="/products/{id}", name="product")
      *
-     * @param int $id
+     * @param Request $request
+     * @param int     $id
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAction(int $id)
+    public function getAction(Request $request, int $id)
     {
+        $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
+
+        $commentForm = $this->createForm(CommentType::class);
+        $commentForm->handleRequest($request);
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment = $commentForm->getData();
+            $comment->setProduct($product);
+
+            $this->getDoctrine()->getManager()->persist($comment);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('product', ['id' => $product->getId()]);
+        }
+
         return $this->render(
             'Product/get.html.twig',
             [
-                'product' => $this->getDoctrine()->getRepository(Product::class)->find($id)
+                'product'      => $product,
+                'comment_form' => $commentForm->createView(),
             ]
         );
     }
