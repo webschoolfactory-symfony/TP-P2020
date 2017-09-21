@@ -10,7 +10,7 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production",
+        "build": "./nodes_modules/.bin/encore production",
         "postinstall": "yarn run build"
     },
     "dependencies": {
