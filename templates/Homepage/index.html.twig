@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Hello, world
+    <h2>Derniers produits</h2>
+    <ul>
+        {% for product in last_products %}
+            <li>
+                <a href="{{ path('product', {id: product.id}) }}">{{ product.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

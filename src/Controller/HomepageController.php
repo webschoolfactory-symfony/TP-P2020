@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,20 +19,19 @@ class HomepageController extends Controller
      */
     public function indexAction()
     {
-        $this->get('doctrine')->getRepository(Product::class)->findAll();
-
-        return $this->render('Homepage/index.html.twig');
+        return $this->render(
+            'Homepage/index.html.twig',
+            ['last_products' => $this->get('doctrine')->getRepository(Product::class)->getLasts()]
+        );
     }
 
-    /**
-     * @Route(path="/hello/{name}", name="hello")
-     *
-     * @param string $name
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function helloAction($name)
+    public function showCategoriesAction()
     {
-        return $this->render('Homepage/hello.html.twig', ['name' => $name]);
+        return $this->render(
+            'Homepage/categories.html.twig',
+            [
+                'categories' => $this->getDoctrine()->getRepository(Category::class)->findAll()
+            ]
+        );
     }
 }

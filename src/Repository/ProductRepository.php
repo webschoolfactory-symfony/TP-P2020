@@ -9,5 +9,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductRepository extends EntityRepository
 {
-    // …
+    public function getLasts($nb = 5)
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults($nb)
+            ->getQuery()
+            ->getResult();
+    }
 }

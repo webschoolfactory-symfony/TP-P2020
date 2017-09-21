@@ -9,6 +9,8 @@
     </head>
     <body>
         <header>
+            {{ render(controller('App\\Controller\\HomepageController:showCategoriesAction')) }}
+            <a href="{{ path('homepage') }}">Accueil</a>
             <a href="{{ path('products') }}">Produits</a>
         </header>
         {% block body %}{% endblock %}
