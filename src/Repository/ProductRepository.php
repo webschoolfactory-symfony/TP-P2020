@@ -12,7 +12,7 @@ class ProductRepository extends EntityRepository
     public function getLasts($nb = 5)
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.id', 'DESC')
             ->setMaxResults($nb)
             ->getQuery()
             ->getResult();
